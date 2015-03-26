@@ -22,7 +22,7 @@ Trigger::~Trigger()
 
 int Trigger::Get()
 {
-    this->_file.open(_path.toStdString());
+    this->_file.open(_path.toStdString().c_str());
     int value;
     _file >> value;
 
@@ -32,7 +32,7 @@ int Trigger::Get()
 
 void Trigger::Set(int value)
 {
-    this->_file.open(_path.toStdString());
+    this->_file.open(_path.toStdString().c_str());
     _file << value << std::endl;
     _file.close();
 

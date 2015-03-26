@@ -34,9 +34,9 @@ int main(int argc, char *argv[])
 
 
 
-    auto names = manager.TriggerNames();
+    std::vector<QString, std::allocator<QString>>  names = manager.TriggerNames();
     for(
-        auto iter = names.begin();
+        std::vector<QString,std::allocator<QString>>::iterator iter = names.begin();
         iter != names.end();
         iter++)
     {
@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
         layout->addWidget(slider);
     }
 
-    window->setLayout(layout);\
+    window->setLayout(layout);
 
     window->show();
     return app.exec();

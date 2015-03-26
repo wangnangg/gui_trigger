@@ -14,7 +14,7 @@ void TriggerManager::Init()
     this->_trigger_list.clear();
     QDir dir(_dir_path);
     QFileInfoList file_list = dir.entryInfoList();
-    for(auto iter = file_list.begin(); iter != file_list.end(); iter++)
+    for(QFileInfoList::iterator iter = file_list.begin(); iter != file_list.end(); iter++)
     {
         if( (*iter).isFile() &&
           ((*iter).fileName().contains(this->_name_keyword) || this->_name_keyword == "." ))
@@ -28,9 +28,11 @@ void TriggerManager::Init()
 std::vector<QString> TriggerManager::TriggerNames() const
 {
     std::vector<QString> names;
-    for(auto iter = this->_trigger_list.begin(); iter != this->_trigger_list.end(); iter++)
+    for(std::vector<Trigger*>::const_iterator iter = this->_trigger_list.begin(); 
+	iter != this->_trigger_list.end(); 
+	iter++)
     {
-        auto ptrigger = *iter;
+        Trigger* ptrigger = *iter;
         names.push_back(ptrigger->Name());
 
     }
@@ -48,9 +50,9 @@ void TriggerManager::Set(const QString &name, int value)
         value = 100;
     }
 
-    for(auto iter = this->_trigger_list.begin(); iter != this->_trigger_list.end(); iter++)
+    for(std::vector<Trigger*>::iterator iter = this->_trigger_list.begin(); iter != this->_trigger_list.end(); iter++)
     {
-        auto ptrigger = *iter;
+        Trigger* ptrigger = *iter;
         if(ptrigger->Name() == name)
         {
             ptrigger->Set(value);
@@ -63,9 +65,9 @@ void TriggerManager::Set(const QString &name, int value)
 int TriggerManager::Get(const QString &name)
 {
    // std::cout << name.toStdString();
-    for(auto iter = this->_trigger_list.begin(); iter != this->_trigger_list.end(); iter++)
+    for(std::vector<Trigger*>::iterator iter = this->_trigger_list.begin(); iter != this->_trigger_list.end(); iter++)
     {
-        auto ptrigger = *iter;
+        Trigger* ptrigger = *iter;
       //  std::cout << ptrigger->Name().toStdString();
         if(ptrigger->Name() == name)
         {
